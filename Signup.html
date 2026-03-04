@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyLibrary</title>
+</head>
+
+<body>
+    <a href="index.html"><img src="assests/MyLibrary.png" alt="Library Logo" width="150px"></a>
+
+    <H1>SignUp</H1>
+    <form action="index.html" method="get">
+        <label for="AdminUserName">User Name:</label>
+        <input type="text" name="AUserName" id="AdminUserName" required>
+        <br><br>
+        <label for="Password">Password: </label>
+        <input type="password" name="Password" id="Password" required>
+        <br><br>
+        <label for="ConfirmPassword">Confirm Password: </label>
+        <input type="password" name="ConfirmPassword" id="ConfirmPassword" required>
+        <br><br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+        <br><br>
+        <label for="is_admin">Type: </label>
+        <br><br>
+        <div>
+            <input type="radio" name="type" id="Admin" required>
+            <label for="Admin">Admin</label>
+        </div>
+
+        <div>
+            <input type="radio" name="type" id="User">
+            <label for="User">User</label>
+        </div>
+        <br><br>
+        <input type="submit" value="Signup">
+    </form>
+    <br>
+    <p>if you already have an account Login</p>
+    <a href="./Login.html"><button>Login</button></a>
+    <br><br>
+</body>
+
+
+</html>
