@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>Edit/Delete Books - Book Store</title>
+        <meta name="description" content="our book store">
+    </head>
+
+    <body>
+
+        <header>
+            <nav>
+                <ul>
+                <li><a href="admin_dashboard.html">Dashboard</a></li>
+                <li><a href="edit_book.html">Edit/Delete Books</a></li>
+                <li><a href="index.html">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <h1>Edit/Delete Books</h1>
+        <div class="Book Choice">
+                <label for="Book Choice">Choose a book</label>
+                <select id="Book Choice">
+                    <option value="Book 1">Book 1</option>
+                    <option value="Book 2">Book 2</option>
+                    <option value="Book 3">Book 3</option>
+                </select>
+            </div>
+        
+
+        <hr>
+
+        <h2>Delete The Book:</h2>
+
+
+        <input type="submit" value="Delete">
+
+        <hr>
+
+        <h2>Edit The Book:</h2>
+
+        <form>
+
+            <div>
+                <input type="number"
+                placeholder="Id"
+                required
+                id="id"
+                >
+            </div>
+
+            <br>
+            
+
+            <div class="book_name">
+                <input type="text"
+                placeholder="Name"
+                required
+                id="name">
+            </div>
+
+            <br>
+
+            <div class="author">
+
+                <input type="text" 
+                placeholder="Author"
+                required
+                id="author">
+            </div>
+
+            <br>
+
+            <div class="Category">
+                <label for="Category">Category</label>
+                <select id="Category">
+                    <option value="Horror">Horror</option>
+                    <option value="Romantic">Romantic</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Fiction">Fiction</option>
+                    <option value="Science">Science</option>
+                    <option value="History">History</option>
+                </select>
+            </div>
+
+            <br>
+
+
+            <div class="Description">
+                <textarea
+                required
+                placeholder="Description"
+                rows="8"
+                ></textarea>
+
+            </div>
+
+            <br>
+
+            <input type="submit" value="Confirm">
+            
+
+
+        </form>
+
+
+        <footer>
+            <p>&copy; 2026 Book Store. All rights reserved.</p>
+        </footer>
+
+
+    </body>
+
+
+
+</html>
