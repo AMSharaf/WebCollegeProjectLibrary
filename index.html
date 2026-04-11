@@ -35,14 +35,15 @@
     <div id="home">
       <h2>Store</h2>
       <div class="search">
-        <form class="container-flex-row">
+        <form class="container-flex-row" id="searchForm">
           <label for="search">Search</label>
           <input name="search" id="search" placeholder="Search for your book" />
           <button class="card-btn">Find</button>
         </form>
       </div>
-      <div class="grid-container">
-        <div class="main-card">
+      <p id="notFound">No Element Found</p>
+      <ul class="grid-container" id="myList">
+        <li class="main-card">
           <div><img src="./assests/book1.jpg" alt="Product#333  Image" /></div>
           <div class="card-text">
             <h4>اللص و الكلاب</h4>
@@ -55,8 +56,8 @@
             <a href="Book_Details.html"><button class="card-btn">Product Details</button></a>
             <a href="#"><button class="card-btn">Borrow Book</button></a>
           </div>
-        </div>
-        <div class="main-card">
+        </li>
+        <li class="main-card">
           <div> <img src="./assests/book2.jpg" alt="Product#333  Image ">
           </div>
           <div class="card-text">
@@ -70,8 +71,8 @@
             <a href="Book_Details.html"><button class="card-btn">Product Details</button></a>
             <a href="#"><button class="card-btn">Borrow Book</button></a>
           </div>
-        </div>
-        <div class="main-card">
+        </li>
+        <li class="main-card">
           <div> <img src="./assests/book3.jpg" alt="Product#333  Image ">
           </div>
           <div class=" card-text">
@@ -85,8 +86,8 @@
             <a href="Book_Details.html"><button class="card-btn">Product Details</button></a>
             <a href="#"><button class="card-btn">Borrow Book</button></a>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
       <hr>
       <div id="about">
         <h2>About</h2>
@@ -193,6 +194,7 @@
       <p>All Copy Rights Reserved @2026</p>
     </div>
   </footer>
+  <script src="first.js"></script>
 </body>
 
 </html>
