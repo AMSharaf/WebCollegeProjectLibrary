@@ -1,0 +1,214 @@
+/* =========================================
+    1. GLOBAL STYLES & COLOR PALETTE
+   ========================================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F9F7F7;
+    /* Palette: Lightest (Background) */
+    color: #112D4E;
+    /* Palette: Darkest Blue (Main Text) */
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2 {
+    color: #112D4E;
+    /* Palette: Darkest Blue */
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* =========================================
+    2. NAVIGATION BAR
+   ========================================= */
+header {
+    background-color: #112D4E;
+    /* Palette: Darkest Blue */
+    padding: 15px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+nav ul li a {
+    color: #F9F7F7;
+    /* Palette: Lightest */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #3F72AF;
+    /* Palette: Medium Blue (Hover) */
+}
+
+/* =========================================
+    3. FORMS (Add & Edit Pages)
+   ========================================= */
+form {
+    background: #FFFFFF;
+    /* Pure white makes forms pop off the light background */
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(17, 45, 78, 0.1);
+    /* Subtle shadow using Dark Blue */
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 2px solid #DBE2EF;
+    /* Palette: Light Blue (Borders) */
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: inherit;
+    color: #112D4E;
+    /* Palette: Darkest Blue */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #3F72AF;
+    /* Palette: Medium Blue (Active Field) */
+}
+
+/* Make readonly fields look locked */
+input[readonly] {
+    background-color: #DBE2EF;
+    /* Palette: Light Blue */
+    color: #112D4E;
+    cursor: not-allowed;
+}
+
+/* =========================================
+    4. BUTTONS
+   ========================================= */
+input[type="submit"],
+button {
+    width: 100%;
+    background-color: #3F72AF;
+    /* Palette: Medium Blue */
+    color: #F9F7F7;
+    /* Palette: Lightest */
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #112D4E;
+    /* Palette: Darkest Blue (Hover) */
+}
+
+/* Note: UX best practices say Delete buttons should stay red so users don't click them by mistake! */
+#deleteBtn {
+    background-color: #e74c3c;
+    width: auto;
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+#deleteBtn:hover {
+    background-color: #c0392b;
+}
+
+/* =========================================
+    5. ADMIN DASHBOARD TABLE & LINKS
+   ========================================= */
+table {
+    width: 90%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    box-shadow: 0 4px 15px rgba(17, 45, 78, 0.1);
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Keeps the rounded corners on the table */
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #DBE2EF;
+    /* Palette: Light Blue */
+}
+
+th {
+    background-color: #112D4E;
+    /* Palette: Darkest Blue */
+    color: #F9F7F7;
+    /* Palette: Lightest */
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #F9F7F7;
+    /* Palette: Lightest (Alternating row colors) */
+}
+
+tr:hover {
+    background-color: #DBE2EF;
+    /* Palette: Light Blue (Row hover effect) */
+}
+
+td a {
+    color: #3F72AF;
+    /* Palette: Medium Blue for Edit/Delete links */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+td a:hover {
+    text-decoration: underline;
+    color: #112D4E;
+}
+
+/* Style the standalone "Add New Book" link at the bottom of the dashboard */
+body>a[href="add_book.html"] {
+    display: block;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #3F72AF;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+body>a[href="add_book.html"]:hover {
+    color: #112D4E;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #112D4E;
+    font-size: 14px;
+}
