@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         row.innerHTML = `
                     <td>${book.id}</td>
-                    <td>${book.name}</td>
+                    <td>${book.title}</td>
                     <td>${book.author}</td>
                     <td>${book.category}</td>
                     <td>${book.description}</td>
