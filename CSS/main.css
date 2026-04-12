@@ -35,14 +35,15 @@ nav ul {
     padding: 0;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 30px;
+    flex-wrap: wrap;
 }
 
 nav ul li a {
     color: #F9F7F7;
-    /* Palette: Lightest */
     text-decoration: none;
-    font-weight: bold;
+    /* font-weight: bold; */
     font-size: 16px;
     padding: 8px 16px;
     border-radius: 4px;
@@ -51,9 +52,40 @@ nav ul li a {
 
 nav ul li a:hover {
     background-color: #3F72AF;
-    /* Palette: Medium Blue (Hover) */
 }
 
+#nav_search {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+#navSearch {
+    padding: 8px 12px;
+    width: 250px;
+    border-radius: 50px;
+    border: 1px solid #DBE2EF;
+    background-color: #F9F7F7;
+}
+
+#navSearch:focus {
+    outline: none;
+    border-color: #3F72AF;
+}
+nav ul {
+    justify-content: flex-center;   
+    gap: 25px;
+}
+
+#nav_search {
+    margin-left: auto !important;
+}
+
+nav ul li {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
 /* =========================================
     3. FORMS (Add & Edit Pages)
    ========================================= */
@@ -117,6 +149,21 @@ button {
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.card-btn {
+    width: 100%;
+    background-color: #3F72AF;
+    /* Palette: Medium Blue */
+    color: #F9F7F7;
+    /* Palette: Lightest */
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    
     cursor: pointer;
     transition: background 0.3s;
 }

@@ -1,0 +1,60 @@
+
+#bookTable {
+    margin: 10px auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+#bookTable th, #bookTable td {
+    padding: 8px;
+    text-align: left;
+}
+
+    
+body {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    margin: 0;
+    width: 100%;
+    background-color: #112d4e;
+    padding: 15px;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+
+#nav_search {
+    display: flex;
+    margin-left: auto;
+    outline: none;
+    align-items: center;    
+}
+
+#navSearch {
+    padding: 5px; 
+    width: 250px; 
+    height: 35px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+}
+nav a {
+    color: #f9f7f7;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #3f72af;
+}

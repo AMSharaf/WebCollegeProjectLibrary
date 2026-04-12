@@ -1,47 +1,40 @@
 <!doctype html>
 <html>
   <head>
-    <title>Book Search</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Library - Dashboard</title>
+    <link rel="stylesheet" href="CSS/main.css" />
+    <link rel="stylesheet" href="CSS/User_Dashboard.css" />
   </head>
   <body>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="user_dashboard.html">Dashboard</a></li>
+        <li><a href="User_Dashboard.html">Dashboard</a></li>
+        <li><a href="Borrowed_Book.html">My Borrowed Books</a></li>
+        <li id="nav_search">
+          <input type="text" id="navSearch" placeholder="Search..." />
+        </li>
         <li><a href="index.html">Logout</a></li>
       </ul>
     </nav>
-    <hr />
 
-    <form method="#" action="#">
-      Search By?
-      <select name="text">
-        <option>Title</option>
-        <option>Author</option>
-        <option>Category</option>
-        <input type="submit" value="search" />
-      </select>
-    </form>
+    <div class="container">
+      <h1 style="padding: 10px">Book Discovery</h1>
 
-    <table border="1">
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Category</th>
-        <th>Availabile</th>
-      </tr>
-      <tr>
-        <td>Book A</td>
-        <td>Author X</td>
-        <td>Fiction</td>
-        <td>Avilable</td>
-      </tr>
-      <tr>
-        <td>Book B</td>
-        <td>Author Y</td>
-        <td>Science</td>
-        <td>Not Available</td>
-      </tr>
-    </table>
+      <div class="main-search-area" style="margin-bottom: 20px">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search title, author, or category..."
+          style="padding: 10px; width: 70%"
+        />
+        <button id="searchBtn" style="width: 20%">Search</button>
+      </div>
+
+      <div id="book_container" class="row"></div>
+    </div>
+    <script src="JavaScript/User_Scripts.js"></script>
   </body>
 </html>

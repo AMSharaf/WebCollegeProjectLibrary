@@ -7,7 +7,7 @@ body{
     background-color:#D6E4F0;
 }
 .background-prime{
-    background-color:#1E56A0;
+    background-color: #112D4E;
 }
 .container-flex-row.nav{
     display: flex;
@@ -59,7 +59,7 @@ body{
 }
 
 .author>.btn>button:hover{
-    background-color:#163172;
+    background-color:#1E56A0;
 }
 .logo-img{
     width:70px;
@@ -141,7 +141,7 @@ main{
 footer{
     border-top:#163172 solid ;
     color:white;
-    background: #1E56A0;
+    background: #112D4E;
     padding:0 10% 0 10%;
     display: flex;
     margin:0px auto;

@@ -1,55 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Admin Dashboard</title>
-        <meta name="description" content="our book store">
-        <link rel="stylesheet" href="main.css">
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Dashboard</title>
+    <meta name="description" content="our book store" />
+    <link rel="stylesheet" href="CSS/main.css" />
+  </head>
 
-    <body>
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="add_book.html">Add New Book</a></li>
-                    <li><a href="edit_book.html">Edit/Delete Books</a></li>
-                    <li><a href="index.html">Logout</a></li>
-                </ul>
-            </nav>
-        </header>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="add_book.html">Add New Book</a></li>
+          <li><a href="edit_book.html">Edit/Delete Books</a></li>
+          <li><a href="index.html">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
 
-        <h1>Welcome, Admin! Manage Library Inventory</h1>
-        
-        <h2>Available books:</h2>
+    <h1>Welcome, Admin! Manage Library Inventory</h1>
 
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Book ID</th>
-                        <th>Book Name</th>
-                        <th>Author</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                
-                <tbody id="bookTableBody">
-                    
-                </tbody>
-            </table>
-        
-        <br>
+    <h2>Available books:</h2>
 
-        <a href="add_book.html">Add New Book</a>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Book ID</th>
+          <th>Book Name</th>
+          <th>Author</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
 
-        <hr>
+      <tbody id="bookTableBody"></tbody>
+    </table>
 
-        <footer>
-            <p>&copy; 2026 Book Store. All rights reserved.</p>
-        </footer>
-        
-        <script src="admin.js"></script>
-    </body>
+    <br />
+
+    <a href="add_book.html">Add New Book</a>
+
+    <hr />
+
+    <footer>
+      <p>&copy; 2026 Book Store. All rights reserved.</p>
+    </footer>
+
+    <script src="JavaScript/admin.js"></script>
+  </body>
 </html>
