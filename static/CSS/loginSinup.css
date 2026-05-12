@@ -1,0 +1,124 @@
+body{
+    margin:0;
+    padding:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:#F6F6F6;
+}
+
+.container-flex-column{
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+    justify-content: center;
+}
+
+.signup-box,.login-box{
+    background-color:#D6E4F0;
+    text-align: center;
+    margin: 0 auto;
+    height: 100vh;
+}
+
+h1{
+ font-weight: 900;
+ text-transform: uppercase;  
+  font-size: 3rem;
+  color:#163172
+}
+
+form{
+    display: flex;
+    width:min(400px,100%);
+    margin-top:20px;
+    margin-bottom: 50px;
+    gap:10px;
+    margin-right:auto;
+    margin-left: auto;
+    flex-direction: column;
+    align-items: center;
+    
+}
+form>.form-element{
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+form>.form-element>label{    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    background-color: #1E56A0;
+    color:white;
+    font-size:1rem;
+    font-weight:500;
+}
+
+
+form>.form-element>input{
+    font-size: 1.2rem;
+    box-sizing: border-box;
+    flex-grow: 1;
+    min-width: 0;
+    height: 50px;
+    padding:1em;
+    border:2px solid #D6E4F0;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    transition: 150ms ;
+}
+
+form>.form-element>input:hover{
+    border:2px solid #1E56A0;
+}
+form>.form-element>input:focus{
+    outline: none;
+    color:black;
+    border-color: #163172;
+}
+
+form>.form-element:has(input:focus)>label{
+        background-color: #163172;
+}
+
+form>.btn{
+    margin-top:10px;
+    font-size: 1rem;
+    border:none;
+    border-radius: 1000px;
+    padding:.85em 4em;
+    background-color: #1E56A0;
+    color:white;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 150ms;
+}
+form>.btn:hover{
+    background-color: #163172;
+}
+
+p>a{
+    text-decoration: none;
+    color:#1E56A0
+}
+p>a:hover{
+    text-decoration: underline;
+}
+
+.incorrect>label {
+     background-color: #f06272 !important;
+}
+.incorrect input{
+    border-color: #f06272 !important;
+}
+
+
+#error-message{  
+      color:#f06272 ;
+      font-weight: bold;
+      font-size:30px;
+}

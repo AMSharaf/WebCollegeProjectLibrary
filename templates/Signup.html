@@ -1,0 +1,73 @@
+{% load static%}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyLibrary</title>
+  <link rel="stylesheet" href="{% static 'CSS/main.css'%}" />
+  <link rel="stylesheet" href="{% static 'CSS/loginSinup.css'%}" />
+</head>
+
+<body>
+  <div class="container-flex-column signup-box">
+    <h1>SignUp</h1>
+    {% for message in messages %}
+    <p id="error-message">{{message}}</p>
+    {%endfor%}
+    <p id="error-message"></p>
+    <form action="Signup" method="POST" id="form">
+      {% csrf_token %}
+      <div class="form-element">
+        <label for="username">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle"
+            viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+            <path fill-rule="evenodd"
+              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+          </svg>
+        </label>
+        <input type="text" name="username" id="username" placeholder="Username" />
+      </div>
+      <div class="form-element">
+        <label for="email">@</label>
+        <input type="email" name="email" id="email" placeholder="Email" />
+      </div>
+      <div class="form-element">
+        <label for="password">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4m0 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3" />
+          </svg>
+        </label>
+        <input type="password" name="password" id="password" placeholder="Password" />
+      </div>
+      <div class="form-element">
+        <label for="cPassword">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4m0 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3" />
+          </svg>
+        </label>
+        <input type="password" name="cPassword" id="cPassword" placeholder="Confirm Password" />
+      </div>
+      <div>
+        <label for="user_type" class="type-label">Type: </label>
+        <input type="radio" name="user_type" id="Admin" value="admin" required />
+        <label for="Admin">Admin</label>
+        <input type="radio" name="user_type" id="User" value="user" />
+        <label for="User">User</label>
+      </div>
+
+      <input type="submit" value="Signup" class="btn" />
+    </form>
+    <p>Already have an Account? <a href="Login">Login</a></p>
+  </div>
+  <script src="{% static 'JavaScript/validation.js'%}"></script>
+</body>
+
+</html>

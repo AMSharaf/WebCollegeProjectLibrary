@@ -1,0 +1,109 @@
+{%load static%}
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit/Delete Books - Book Store</title>
+  <meta name="description" content="our book store" />
+  <link rel="stylesheet" href="{%static 'CSS/main.css'%}" />
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'borrowed_books' %}">Borrowed Books</a></li>
+        <li><a href="{% url 'add-book' %}">Add New Book</a></li>
+        <li><a href="{% url 'edit_book' %}">Edit/Delete Books</a></li>
+        <li>
+          <a>Welcome {{user.username}}</a>
+        </li>
+        <li>
+          <a href="{% url 'Logout' %}" id="logout-link">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <h1>make your changes</h1>
+  <h2>Edit The Book:</h2>
+
+  <form action="{% url 'edit_book' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="Book Choice">Choose a book</label>
+    <select id="bookSelect" name="book_id"> <!-- Add the name attribute here! -->
+      <option value="">-- Choose a book --</option>
+      {% for book in books %}
+      <option value="{{ book.id }}">ID: {{ book.id }} - {{ book.title }}</option>
+      {% endfor %}
+    </select>
+    <h2>Delete The Book:</h2>
+    <div class="book_name">
+      <label>Title:</label><br>
+      <input type="text" name="title" value="{{ book.title }}" required />
+    </div>
+    <br />
+
+    <div class="author">
+      <label>Author:</label><br>
+      <input type="text" name="author" value="{{ book.author }}" required />
+    </div>
+    <br />
+
+    <div class="Category">
+      <label>Current Category: <strong>{{ book.category }}</strong></label><br>
+      <select name="category">
+        <option value="Horror">Horror</option>
+        <option value="Romantic">Romantic</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="Fiction">Fiction</option>
+        <option value="Science">Science</option>
+        <option value="History">History</option>
+      </select>
+    </div>
+    <br />
+
+    <div class="Price">
+      <label>Price:</label><br>
+      <input type="number" step="0.01" name="price" value="{{ book.price }}" required />
+    </div>
+    <br />
+    <div class="image-upload">
+      <label>Upload Book Cover:</label><br>
+      <input type="file" name="cover_image" accept="image/*" value="{{book.cover_image}}" />
+    </div>
+    <br>
+    <div class="Description">
+      <textarea placeholder="Description" rows="8" id="description" name="description"
+        value="{{book.details}}"></textarea>
+    </div>
+    <br>
+
+    <button type="submit" name="action" value="edit" class="btn">Save Changes</button>
+    <button type="submit" name="action" value="delete" class="btn" style="background-color: red; color: white;"
+      onclick="return confirm('Are you sure you want to delete this book?');">Delete Book</button>
+  </form>
+
+  <footer>
+    <p>&copy; 2026 Book Store. All rights reserved.</p>
+  </footer>
+  <script>
+    // 1. Safely escape the Django JSON string so it doesn't break JavaScript
+    const booksString = '{{ books_json|escapejs }}';
+
+    // 2. Check if it's empty, otherwise parse it into a JavaScript array
+    const freshBooksData = booksString ? JSON.parse(booksString) : [];
+
+    // 3. Save it to localStorage
+    localStorage.setItem('cachedBooks', JSON.stringify(freshBooksData));
+
+    // 4. A helpful debug line so you can check your browser console!
+    console.log("Books loaded into cache:", freshBooksData);
+  </script>
+  <script src="{% static 'JavaScript/admin.js'%}"></script>
+</body>
+
+</html>

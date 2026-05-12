@@ -1,0 +1,148 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ book.title }} - Details</title>
+  <link rel="stylesheet" href="{% static 'CSS/main.css' %}" />
+  <link rel="stylesheet" href="{% static 'CSS/Book_Details.css' %}" />
+</head>
+
+<body>
+  {% if not user.is_authenticated %}
+  <nav class="background-prime">
+    <div class="nav container-flex-row">
+      <div class="element">
+        <a class=" " href="index.html"><img src="{% static 'assests/MyLibrary.png '%} " alt="Library Logo"
+            class="logo-img" /></a>
+        <h1>Book Library</h1>
+      </div>
+
+      <div class="element links container-flex-row">
+        <a class="element" href="#home">Explore</a>
+        <a class="element" href="#about">About</a>
+        <a class="element" href="#Categories">Categories</a>
+        <a class="element" href="#Contact">Contact</a>
+      </div>
+      <div class="element author container-flex-column">
+        {% if user.is_authenticated %}
+        <div class="container-flex-column">
+          <p>Welcome {{user.username}}</p>
+        </div>
+        <a class="btn" href="Logout"><button class="background-prime">Logout</button></a>
+        {% else %}
+        <a class="btn" href="Login"><button class="background-prime">Login</button></a>
+        <a class="btn" href="Signup"><button class="background-prime">Signup</button></a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  {%elif request.user.is_staff%}
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+      <li><a href="{% url 'borrowed_books' %}">Borrowed Books</a></li>
+      <li><a href="{% url 'add-book' %}">Add New Book</a></li>
+      <li><a href="{% url 'edit_book' %}">Edit/Delete Books</a></li>
+      <li>
+        <a>Welcome {{user.username}}</a>
+      </li>
+      <li>
+        <a href="{% url 'Logout' %}" id="logout-link">Logout</a>
+      </li>
+    </ul>
+  </nav>
+  {%else %}
+  <nav class="background-prime">
+    <div class="nav container-flex-row">
+      <div class="element">
+        <a class=" " href="/"><img src="{% static 'assests/MyLibrary.png '%} " alt="Library Logo"
+            class="logo-img" /></a>
+        <h1>Book Library</h1>
+      </div>
+
+      <div class="element links container-flex-row">
+        <a class="element" href="/">home</a>
+        <a class="element" href="my-books">Borrowed Books</a>
+        <a class="element" href="#Categories">Categories</a>
+        <a class="element" href="#Contact">Contact</a>
+      </div>
+      <div class="element author container-flex-column">
+        <div class="container-flex-column">
+          <p>Welcome {{user.username}}</p>
+        </div>
+        <a class="btn" href="Logout"><button class="background-prime">Logout</button></a>
+      </div>
+    </div>
+  </nav>
+  {%endif%}
+
+  <div id="Book-Display" class="row" style="padding: 40px 0;">
+    <div
+      style="display: flex; gap: 40px; background: white; padding: 30px; border: 1px solid #dbe2ef; border-radius: 8px; width: 80%; margin: 0 auto;">
+
+      <div style="flex-shrink: 0;">
+        {% if book.cover_image %}
+        <img src="{{ book.cover_image.url }}" alt="{{ book.title }} Cover"
+          style="width: 250px; height: 350px; object-fit: contain; border: 1px solid #ccc;">
+        {% else %}
+        <div
+          style="width: 250px; height: 350px; background: #eee; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center;">
+          <p>No Cover Available</p>
+        </div>
+        {% endif %}
+      </div>
+
+      <div style="flex-grow: 1;">
+        <h1 style="color: #112d4e; margin-bottom: 10px;">{{ book.title }}</h1>
+        <p><strong>Book ID:</strong> {{ book.id }}</p>
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        <p><strong>Category:</strong> {{ book.category }}</p>
+        <p><strong>Price:</strong> ${{ book.price }}</p>
+
+        <p style="font-size: 18px; font-weight: bold; margin: 15px 0;">
+          Status:
+          {% if book.borrowed_by %}
+          <span style="color:#112d4e; ;">Not Available </span>
+          {% else %}
+          <span style="color: #112d4e;">Available</span>
+          {% endif %}
+        </p>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+        <h3 style="color: #112d4e;">Description</h3>
+        <p style="line-height: 1.6; color: #333;">{{ book.details }}</p>
+
+        <div style="margin-top: 30px;">
+          {% if book.borrowed_by == None %}
+          {% if user.is_authenticated %}
+          <form action="{% url 'borrow_book' book.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn"
+              style="background-color: #3f72af; color: white; padding: 10px 20px; font-size: 16px; border: none; cursor: pointer; border-radius: 5px;">Borrow
+              Book</button>
+          </form>
+          {% else %}
+          <a href="{% url 'login' %}">
+            <button
+              style="background-color: #3f72af; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px;">Borrow
+              Book</button>
+          </a>
+          {% endif %}
+          {% else %}
+          <button class="disabled" disabled
+            style="background-color: #cccccc; color: #666; padding: 10px 20px; border: none; cursor: not-allowed; font-size: 16px;">Unavailable</button>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <meta name="description" content="our book store" />
+  <link rel="stylesheet" href="{% static 'CSS/main.css' %}" />
+</head>
+
+<body>
+  <header>
+    {% if user.is_authenticated %}
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'borrowed_books' %}">Borrowed Books</a></li>
+        <li><a href="{% url 'add-book' %}">Add New Book</a></li>
+        <li><a href="{% url 'edit_book' %}">Edit/Delete Books</a></li>
+        <li>
+          <a>Welcome {{user.username}}</a>
+        </li>
+        <li>
+          <a href="{% url 'Logout' %}" id="logout-link">Logout</a>
+        </li>
+      </ul>
+    </nav>
+    {%endif%}
+  </header>
+
+  <h1>Welcome, {{ request.user.username }}! Manage Library Inventory</h1>
+
+  <h2>Available books:</h2>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Book ID</th>
+        <th>Book Title</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody id="bookTableBody">
+      {% for book in books %}
+      <tr>
+        <td>{{ book.id }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.category }}</td>
+        <td>
+          {% if book.borrowed_by %}
+          Borrowed by {{ book.borrowed_by.username }}
+          {% else %}
+          Available
+          {% endif %}
+        </td>
+        <td>
+          <a href="{% url 'edit_book' %}">Edit</a> |
+          <a href="{% url 'delete_book' book.id %}" class="delete-link" data-id="4">Delete</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" style="text-align: center; padding: 20px;">No books in the inventory yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <br />
+  <a href="{%url 'add-book' %}" id="addNewBook">Add New Book</a>
+  <hr />
+
+  <footer>
+    <p>&copy; 2026 Book Store. All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>
