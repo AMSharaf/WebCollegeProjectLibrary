@@ -5,48 +5,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="{% static 'CSS/main.css'%}" />
-  <link rel="stylesheet" href="{% static 'CSS/loginSinup.css'%}" />
-  <title>My Liberary</title>
+  <link rel="stylesheet" href="{% static 'CSS/main.css' %}" />
+  <link rel="stylesheet" href="{% static 'CSS/loginSinup.css' %}" />
+  <title>My Library - Login</title>
 </head>
 
 <body>
   <div class="container-flex-column login-box">
     <h1>Login</h1>
+
     {% for message in messages %}
-    <p id="error-message">{{message}}</p>
-    {%endfor%}
-    <p id="error-message"></p>
-    <form action="Login" method="POST" id="form">
+    <p id="error-message">{{ message }}</p>
+    {% endfor %}
+
+    <!-- FIX: Use {% url 'Login' %} instead of raw string "Login" -->
+    <form action="{% url 'Login' %}" method="POST" id="form">
       {% csrf_token %}
       <div class="form-element">
         <label for="username">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle"
-            viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-            <path fill-rule="evenodd"
-              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
           </svg>
         </label>
-        <input type="text" name="username" id="username" placeholder="username" />
+        <input type="text" name="username" id="username" placeholder="Username" required />
       </div>
       <div class="form-element">
         <label for="password">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill"
-            viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-              d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4m0 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4m0 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3" />
           </svg>
         </label>
-        <input type="password" name="password" id="password" placeholder="password" />
+        <input type="password" name="password" id="password" placeholder="Password" required />
       </div>
       <input type="submit" value="Login" class="btn" />
     </form>
-    <p>
-      if you don't already have an account <a href="Signup">SignUp</a>
-    </p>
-    <script src="{% static 'JavaScript/validation.js'%}"></script>
+    <p>Don't have an account? <a href="{% url 'Signup' %}">Sign Up</a></p>
+
+    <script src="{% static 'JavaScript/validation.js' %}"></script>
   </div>
 </body>
-
 </html>

@@ -1,40 +1,48 @@
+{% load static %}
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Library - Dashboard</title>
-    <link rel="stylesheet" href="CSS/main.css" />
-    <link rel="stylesheet" href="CSS/User_Dashboard.css" />
-  </head>
-  <body>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="User_Dashboard.html">Dashboard</a></li>
-        <li><a href="Borrowed_Book.html">My Borrowed Books</a></li>
-        <li id="nav_search">
-          <input type="text" id="navSearch" placeholder="Search..." />
-        </li>
-        <li><a href="index.html">Logout</a></li>
-      </ul>
-    </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Library - Dashboard</title>
+  <!-- FIX: Was using raw relative paths — now uses {% static %} tags -->
+  <link rel="stylesheet" href="{% static 'CSS/main.css' %}" />
+  <link rel="stylesheet" href="{% static 'CSS/User_Dashboard.css' %}" />
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="{% url 'index' %}">Home</a></li>
+      <li><a href="{% url 'borrowed_books' %}">My Borrowed Books</a></li>
+      {% if user.is_staff %}
+      <li><a href="{% url 'admin_dashboard' %}">Admin Dashboard</a></li>
+      {% endif %}
+      {% if user.is_authenticated %}
+      <li><a>Welcome {{ user.username }}</a></li>
+      <li><a href="{% url 'Logout' %}" id="logout-link">Logout</a></li>
+      {% else %}
+      <li><a href="{% url 'Login' %}">Login</a></li>
+      <li><a href="{% url 'Signup' %}">Signup</a></li>
+      {% endif %}
+    </ul>
+  </nav>
 
-    <div class="container">
-      <h1 style="padding: 10px">Book Discovery</h1>
+  <div class="container">
+    <h1 style="padding: 10px">Book Discovery</h1>
 
-      <div class="main-search-area" style="margin-bottom: 20px">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Search title, author, or category..."
-          style="padding: 10px; width: 70%"
-        />
-        <button id="searchBtn" style="width: 20%">Search</button>
-      </div>
-
-      <div id="book_container" class="row"></div>
+    <div class="main-search-area" style="margin-bottom: 20px">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search title, author, or category..."
+        style="padding: 10px; width: 70%"
+      />
+      <button id="searchBtn" style="width: 20%">Search</button>
     </div>
-    <script src="JavaScript/User_Scripts.js"></script>
-  </body>
+
+    <div id="book_container" class="row"></div>
+  </div>
+
+  <script src="{% static 'JavaScript/User_Scripts.js' %}"></script>
+</body>
 </html>

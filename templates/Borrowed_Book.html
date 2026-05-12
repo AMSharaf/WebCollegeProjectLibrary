@@ -5,32 +5,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Borrowed Books</title>
+  <title>{% if user.is_staff %}All Borrowed Books{% else %}My Borrowed Books{% endif %}</title>
   <link rel="stylesheet" href="{% static 'CSS/main.css' %}" />
   <link rel="stylesheet" href="{% static 'CSS/borrowed_book.css' %}" />
 </head>
 
 <body>
-  {% if user.is_authenticated %}
   <nav>
     <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+      <li><a href="{% url 'index' %}">Home</a></li>
       <li><a href="{% url 'borrowed_books' %}">Borrowed Books</a></li>
+      {% if user.is_staff %}
+      <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
       <li><a href="{% url 'add-book' %}">Add New Book</a></li>
       <li><a href="{% url 'edit_book' %}">Edit/Delete Books</a></li>
-      <li>
-        <a>Welcome {{user.username}}</a>
-      </li>
-      <li>
-        <a href="{% url 'Logout' %}" id="logout-link">Logout</a>
-      </li>
+      {% endif %}
+      <li><a>Welcome {{ user.username }}</a></li>
+      <li><a href="{% url 'Logout' %}" id="logout-link">Logout</a></li>
     </ul>
   </nav>
-  {%endif%}
+
   <main>
     <div style="padding: 20px;">
+      {% if user.is_staff %}
+      <h2>All Borrowed Books</h2>
+      <p style="color: #555;">Showing all books currently borrowed by users.</p>
+      {% else %}
       <h2>My Borrowed Books</h2>
+      {% endif %}
+
       <table id="bookTable" border="1" style="margin-top: 20px; width: 100%; text-align: center;">
         <thead>
           <tr>
@@ -39,15 +42,18 @@
             <th>Author</th>
             <th>Category</th>
             <th>Price</th>
+            {% if user.is_staff %}
+            <th>Borrowed By</th>
+            {% endif %}
             <th>Action</th>
           </tr>
         </thead>
-        <tbody id="borrowedBooksTableBody">
+        <tbody>
           {% for book in borrowed_books %}
           <tr>
             <td>
               {% if book.cover_image %}
-              <img src="{{ book.cover_image }}" alt="Book Image" width="60px" />
+              <img src="{{ book.cover_image.url }}" alt="Book Image" width="60px" />
               {% else %}
               <span>No Image</span>
               {% endif %}
@@ -56,13 +62,32 @@
             <td>{{ book.author }}</td>
             <td>{{ book.category }}</td>
             <td>${{ book.price }}</td>
+            {% if user.is_staff %}
+            <td>{{ book.borrowed_by.username }}</td>
+            {% endif %}
             <td>
-              <a href="{% url 'return_book' book.id %}"><button>Return</button></a>
+              {% if user.is_staff %}
+              <!-- Admin can force-return any book -->
+              <a href="{% url 'return_book' book.id %}">
+                <button style="background-color:#c0392b; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius:4px;">
+                  Force Return
+                </button>
+              </a>
+              {% else %}
+              <a href="{% url 'return_book' book.id %}">
+                <button>Return</button>
+              </a>
+              {% endif %}
             </td>
           </tr>
           {% empty %}
           <tr>
-            <td colspan=" 6" style="padding: 20px;">You do not currently have any borrowed books.
+            <td colspan="{% if user.is_staff %}7{% else %}6{% endif %}" style="padding: 20px;">
+              {% if user.is_staff %}
+                No books are currently borrowed by any user.
+              {% else %}
+                You do not currently have any borrowed books.
+              {% endif %}
             </td>
           </tr>
           {% endfor %}
@@ -72,5 +97,4 @@
   </main>
 
 </body>
-
 </html>
