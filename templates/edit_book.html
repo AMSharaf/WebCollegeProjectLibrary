@@ -1,134 +1,179 @@
 {% load static %}
 <!doctype html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit/Delete Books - Book Store</title>
+    <meta name="description" content="our book store" />
+    <link rel="stylesheet" href="{% static 'CSS/main.css' %}" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Edit/Delete Books - Book Store</title>
-  <meta name="description" content="our book store" />
-  <link rel="stylesheet" href="{% static 'CSS/main.css' %}" />
-</head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+          <li><a href="{% url 'borrowed_books' %}">Borrowed Books</a></li>
+          <li><a href="{% url 'add-book' %}">Add New Book</a></li>
+          <li><a href="{% url 'edit_book' %}">Edit/Delete Books</a></li>
+          <li><a>Welcome {{ user.username }}</a></li>
+          <li><a href="{% url 'Logout' %}" id="logout-link">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="{% url 'index' %}">Home</a></li>
-        <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
-        <li><a href="{% url 'borrowed_books' %}">Borrowed Books</a></li>
-        <li><a href="{% url 'add-book' %}">Add New Book</a></li>
-        <li><a href="{% url 'edit_book' %}">Edit/Delete Books</a></li>
-        <li><a>Welcome {{ user.username }}</a></li>
-        <li><a href="{% url 'Logout' %}" id="logout-link">Logout</a></li>
-      </ul>
-    </nav>
-  </header>
+    <h1>Make Your Changes</h1>
+    <h2>Select a Book to Edit or Delete:</h2>
 
-  <h1>Make Your Changes</h1>
-  <h2>Select a Book to Edit or Delete:</h2>
+    <form
+      id="bookForm"
+      action="{% url 'edit_book' %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
 
-  <form action="{% url 'edit_book' %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
+      <div id="error-message" style="color: red; margin-bottom: 10px"></div>
 
-    <label for="bookSelect">Choose a book:</label>
-    <select id="bookSelect" name="book_id">
-      <option value="">-- Choose a book --</option>
-      {% for book in books %}
-      <option value="{{ book.id }}">ID: {{ book.id }} - {{ book.title }}</option>
-      {% endfor %}
-    </select>
-
-    <br /><br />
-
-    <div class="book_name">
-      <label>Title:</label><br>
-      <input type="text" name="title" id="titleInput" placeholder="Book Title" required />
-    </div>
-    <br />
-
-    <div class="author">
-      <label>Author:</label><br>
-      <input type="text" name="author" id="authorInput" placeholder="Author Name" required />
-    </div>
-    <br />
-
-    <div class="Category">
-      <label>Category:</label><br>
-      <select name="category" id="categorySelect">
-        <option value="Horror">Horror</option>
-        <option value="Romantic">Romantic</option>
-        <option value="Fantasy">Fantasy</option>
-        <option value="Fiction">Fiction</option>
-        <option value="Science">Science</option>
-        <option value="History">History</option>
+      <label for="bookSelect">Choose a book:</label>
+      <select id="bookSelect" name="book_id">
+        <option value="">-- Choose a book --</option>
+        {% for book in books %}
+        <option value="{{ book.id }}">
+          ID: {{ book.id }} - {{ book.title }}
+        </option>
+        {% endfor %}
       </select>
-    </div>
-    <br />
 
-    <div class="Price">
-      <label>Price:</label><br>
-      <input type="number" step="0.01" name="price" id="priceInput" placeholder="Price (e.g., 15.99)" required />
-    </div>
-    <br />
+      <br /><br />
 
-    <div class="image-upload">
-      <label>Upload New Book Cover (optional):</label><br>
-      <input type="file" name="cover_image" accept="image/*" />
-    </div>
-    <br />
+      <div class="book_name">
+        <label>Title:</label><br />
+        <input
+          type="text"
+          name="title"
+          id="titleInput"
+          placeholder="Book Title"
+          required
+        />
+      </div>
+      <br />
 
-    <div class="Description">
-      <label>Description:</label><br>
-      <textarea rows="8" id="descriptionTextarea" name="description" placeholder="Description"></textarea>
-    </div>
-    <br />
+      <div class="author">
+        <label>Author:</label><br />
+        <input
+          type="text"
+          name="author"
+          id="authorInput"
+          placeholder="Author Name"
+          required
+        />
+      </div>
+      <br />
 
-    <button type="submit" name="action" value="edit" class="btn">Save Changes</button>
-    <button type="submit" name="action" value="delete" class="btn"
-      style="background-color: red; color: white;"
-      onclick="return confirm('Are you sure you want to delete this book?');">
-      Delete Book
-    </button>
-  </form>
+      <div class="Category">
+        <label>Category:</label><br />
+        <select name="category" id="categorySelect">
+          <option value="Horror">Horror</option>
+          <option value="Romantic">Romantic</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Fiction">Fiction</option>
+          <option value="Science">Science</option>
+          <option value="History">History</option>
+        </select>
+      </div>
+      <br />
 
-  <footer>
-    <p>&copy; 2026 Book Store. All rights reserved.</p>
-  </footer>
+      <div class="Price">
+        <label>Price:</label><br />
+        <input
+          type="number"
+          step="0.01"
+          name="price"
+          id="priceInput"
+          placeholder="Price (e.g., 15.99)"
+          required
+        />
+      </div>
+      <br />
 
-  <script>
-    // FIX: Replaced localStorage approach (which is blocked) with Django-injected JSON
-    // books_json is passed directly from the view as a safe JSON string
-    const booksData = JSON.parse('{{ books_json|escapejs }}');
+      <div class="image-upload">
+        <label>Upload New Book Cover (optional):</label><br />
+        <input type="file" name="cover_image" accept="image/*" />
+      </div>
+      <br />
 
-    const bookSelect = document.getElementById('bookSelect');
-    const titleInput = document.getElementById('titleInput');
-    const authorInput = document.getElementById('authorInput');
-    const categorySelect = document.getElementById('categorySelect');
-    const priceInput = document.getElementById('priceInput');
-    const descriptionTextarea = document.getElementById('descriptionTextarea');
+      <div class="Description">
+        <label>Description:</label><br />
+        <textarea
+          rows="8"
+          id="descriptionTextarea"
+          name="description"
+          placeholder="Description"
+        ></textarea>
+      </div>
+      <br />
 
-    bookSelect.addEventListener('change', function () {
-      const selectedId = this.value;
+      <button type="submit" name="action" value="edit" class="btn">
+        Save Changes
+      </button>
+      <button
+        type="submit"
+        name="action"
+        value="delete"
+        class="btn"
+        style="margin-top: 15px; background-color: red; color: white"
+        onclick="return confirm('Are you sure you want to delete this book?');"
+      >
+        Delete Book
+      </button>
+    </form>
 
-      if (!selectedId) {
-        titleInput.value = '';
-        authorInput.value = '';
-        categorySelect.value = '';
-        priceInput.value = '';
-        descriptionTextarea.value = '';
-        return;
-      }
+    <footer>
+      <p>&copy; 2026 Book Store. All rights reserved.</p>
+    </footer>
 
-      const selectedBook = booksData.find(b => String(b.id) === String(selectedId));
+    <script src="{% static 'JavaScript/validation.js' %}"></script>
 
-      if (selectedBook) {
-        titleInput.value = selectedBook.title || '';
-        authorInput.value = selectedBook.author || '';
-        categorySelect.value = selectedBook.category || '';
-        priceInput.value = selectedBook.price || '';
-        descriptionTextarea.value = selectedBook.details || '';
-      }
-    });
-  </script>
-</body>
+    <script>
+      // FIX: Replaced localStorage approach (which is blocked) with Django-injected JSON
+      // books_json is passed directly from the view as a safe JSON string
+      const booksData = JSON.parse("{{ books_json|escapejs }}");
+
+      const bookSelect = document.getElementById("bookSelect");
+      const titleInput = document.getElementById("titleInput");
+      const authorInput = document.getElementById("authorInput");
+      const categorySelect = document.getElementById("categorySelect");
+      const priceInput = document.getElementById("priceInput");
+      const descriptionTextarea = document.getElementById(
+        "descriptionTextarea",
+      );
+
+      bookSelect.addEventListener("change", function () {
+        const selectedId = this.value;
+
+        if (!selectedId) {
+          titleInput.value = "";
+          authorInput.value = "";
+          categorySelect.value = "";
+          priceInput.value = "";
+          descriptionTextarea.value = "";
+          return;
+        }
+
+        const selectedBook = booksData.find(
+          (b) => String(b.id) === String(selectedId),
+        );
+
+        if (selectedBook) {
+          titleInput.value = selectedBook.title || "";
+          authorInput.value = selectedBook.author || "";
+          categorySelect.value = selectedBook.category || "";
+          priceInput.value = selectedBook.price || "";
+          descriptionTextarea.value = selectedBook.details || "";
+        }
+      });
+    </script>
+  </body>
 </html>

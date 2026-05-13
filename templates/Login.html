@@ -14,9 +14,14 @@
   <div class="container-flex-column login-box">
     <h1>Login</h1>
 
+    <div id="message-container" style="margin-bottom: 15px; text-align: center;">
     {% for message in messages %}
-    <p id="error-message">{{ message }}</p>
+      <p style="color: {% if message.tags == 'success' %}green{% else %}red{% endif %}; margin: 5px 0;">
+        {{ message }}
+      </p>
     {% endfor %}
+    </div>
+    <div id="error-message" style="color: red; margin-bottom: 10px;"></div>
 
     <!-- FIX: Use {% url 'Login' %} instead of raw string "Login" -->
     <form action="{% url 'Login' %}" method="POST" id="form">
