@@ -5,6 +5,8 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
+from django.http import JsonResponse
+from django.db import models
 from .models import Book
 
 
@@ -113,10 +115,25 @@ def add_book(request):
         category = request.POST.get('category')
         price = request.POST.get('price')
         details = request.POST.get('description')
+        # Server-side validation
+        if not title or not author or not category or not price:
+            messages.error(request, 'All fields are required.')
+            return render(request, 'add_book.html')
+        
+        try:
+            price_val = float(price)
+            if price_val <= 0:
+                messages.error(request, 'Price must be a positive number.')
+                return render(request, 'add_book.html')
+        except (ValueError, TypeError):
+            messages.error(request, 'Invalid price format.')
+            return render(request, 'add_book.html')
+
         Book.objects.create(
             title=title, author=author, category=category,
             price=price, details=details, cover_image=image
         )
+        messages.success(request, 'Book added successfully.')
         return redirect('admin_dashboard')
     return render(request, 'add_book.html')
 
@@ -145,15 +162,36 @@ def edit_book(request):
             if action == 'delete':
                 book.delete()
             elif action == 'edit':
-                book.title = request.POST.get('title')
-                book.author = request.POST.get('author')
-                book.category = request.POST.get('category')
-                book.price = request.POST.get('price')
-                book.details = request.POST.get('description')
+                title = request.POST.get('title')
+                author = request.POST.get('author')
+                category = request.POST.get('category')
+                price = request.POST.get('price')
+                details = request.POST.get('description')
+
+                # Server-side validation
+                if not title or not author or not category or not price:
+                    messages.error(request, 'All fields are required.')
+                    return redirect('edit_book')
+
+                try:
+                    price_val = float(price)
+                    if price_val <= 0:
+                        messages.error(request, 'Price must be a positive number.')
+                        return redirect('edit_book')
+                except (ValueError, TypeError):
+                    messages.error(request, 'Invalid price format.')
+                    return redirect('edit_book')
+
+                book.title = title
+                book.author = author
+                book.category = category
+                book.price = price
+                book.details = details
                 image = request.FILES.get('cover_image')
                 if image:
                     book.cover_image = image
                 book.save()
+                messages.success(request, 'Book updated successfully.')
 
         return redirect('admin_dashboard')
 
@@ -171,3 +209,29 @@ def book_details(request, book_id):
 
 def post(request, pk):
     return render(request, 'post.html', {'pk': pk})
+
+
+def search_books(request):
+    query = request.GET.get('query', '')
+    if query:
+        books = Book.objects.filter(
+            models.Q(title__icontains=query) |
+            models.Q(author__icontains=query) |
+            models.Q(category__icontains=query)
+        )
+    else:
+        books = Book.objects.all()
+    
+    results = []
+    for book in books:
+        results.append({
+            'id': book.id,
+            'title': book.title,
+            'author': book.author,
+            'category': book.category,
+            'price': str(book.price),
+            'cover_image': book.cover_image.url if book.cover_image else '',
+            'borrowed': book.borrowed_by is not None,
+            'details_url': f"/book-details/{book.id}/"
+        })
+    return JsonResponse({'results': results})

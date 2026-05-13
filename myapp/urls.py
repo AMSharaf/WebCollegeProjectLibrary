@@ -20,6 +20,7 @@ urlpatterns = [
     path('add-book/', views.add_book, name='add-book'),
     path('book-details/<int:book_id>/', views.book_details, name='book_details'),
     path('post/<str:pk>', views.post, name='post'),
+    path('search-books/', views.search_books, name='search_books'),
 ]
 
 if settings.DEBUG:
