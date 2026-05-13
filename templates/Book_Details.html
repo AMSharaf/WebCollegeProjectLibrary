@@ -8,6 +8,7 @@
   <title>{{ book.title }} - Details</title>
   <link rel="stylesheet" href="{% static 'CSS/main.css' %}" />
   <link rel="stylesheet" href="{% static 'CSS/Book_Details.css' %}" />
+  <link rel="stylesheet" href="{% static 'CSS/first.css' %}" />
 </head>
 
 <body>
@@ -15,11 +16,12 @@
   <nav class="background-prime">
     <div class="nav container-flex-row">
       <div class="element">
-        <a href="{% url 'index' %}"><img src="{% static 'assests/MyLibrary.png' %}" alt="Library Logo" class="logo-img" /></a>
+        <a href="{% url 'index' %}"><img src="{% static 'assests/MyLibrary.png' %}" alt="Library Logo"
+            class="logo-img" /></a>
         <h1>Book Library</h1>
       </div>
       <div class="element links container-flex-row">
-        <a class="element" href="{% url 'index' %}">Explore</a>
+        <a class="element" href="{% url 'index' %}">Home</a>
         <a class="element" href="#about">About</a>
         <a class="element" href="#Categories">Categories</a>
         <a class="element" href="#Contact">Contact</a>
@@ -45,37 +47,30 @@
   </nav>
 
   {% else %}
-  <nav class="background-prime">
-    <div class="nav container-flex-row">
-      <div class="element">
-        <a href="{% url 'index' %}"><img src="{% static 'assests/MyLibrary.png' %}" alt="Library Logo" class="logo-img" /></a>
-        <h1>Book Library</h1>
-      </div>
-      <div class="element links container-flex-row">
-        <a class="element" href="{% url 'index' %}">Home</a>
-        <a class="element" href="{% url 'borrowed_books' %}">My Borrowed Books</a>
-        <a class="element" href="#Categories">Categories</a>
-        <a class="element" href="#Contact">Contact</a>
-      </div>
-      <div class="element author container-flex-column">
-        <div class="container-flex-column">
-          <p>Welcome {{ user.username }}</p>
-        </div>
-        <a class="btn" href="{% url 'Logout' %}"><button class="background-prime">Logout</button></a>
-      </div>
-    </div>
+  <nav>
+    <ul>
+      <li><a href="{% url 'index' %}">Home</a></li>
+      <li><a href="{% url 'borrowed_books' %}">Borrowed Books</a></li>
+      <li><a class="element" href="{% url 'index'%}">About</a></li>
+      <li><a class="element" href="{% url 'index'%}">Categories</a></li>
+      <li><a class="element" href="{% url 'index'%}">Contact</a></li>
+      <li><a>Welcome {{ user.username }}</a></li>
+      <li><a href="{% url 'Logout' %}" id="logout-link">Logout</a></li>
+    </ul>
   </nav>
   {% endif %}
 
   <div id="Book-Display" class="row" style="padding: 40px 0;">
-    <div style="display: flex; gap: 40px; background: white; padding: 30px; border: 1px solid #dbe2ef; border-radius: 8px; width: 80%; margin: 0 auto;">
+    <div
+      style="display: flex; gap: 40px; background: white; padding: 30px; border: 1px solid #dbe2ef; border-radius: 8px; width: 80%; margin: 0 auto;">
 
       <div style="flex-shrink: 0;">
         {% if book.cover_image %}
         <img src="{{ book.cover_image.url }}" alt="{{ book.title }} Cover"
           style="width: 250px; height: 350px; object-fit: contain; border: 1px solid #ccc;">
         {% else %}
-        <div style="width: 250px; height: 350px; background: #eee; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center;">
+        <div
+          style="width: 250px; height: 350px; background: #eee; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center;">
           <p>No Cover Available</p>
         </div>
         {% endif %}
@@ -103,22 +98,23 @@
 
         <div style="margin-top: 30px;">
           {% if book.borrowed_by == None %}
-            {% if user.is_authenticated %}
-            <form action="{% url 'borrow_book' book.id %}" method="POST">
-              {% csrf_token %}
-              <button type="submit" class="btn"
-                style="background-color: #3f72af; color: white; padding: 10px 20px; font-size: 16px; border: none; cursor: pointer; border-radius: 5px;">
-                Borrow Book
-              </button>
-            </form>
-            {% else %}
-            <!-- FIX: was {% url 'login' %} (lowercase) which didn't exist — use 'Login' -->
-            <a href="{% url 'Login' %}">
-              <button style="background-color: #3f72af; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px;">
-                Login to Borrow
-              </button>
-            </a>
-            {% endif %}
+          {% if user.is_authenticated %}
+          <form action="{% url 'borrow_book' book.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn"
+              style="background-color: #3f72af; color: white; padding: 10px 20px; font-size: 16px; border: none; cursor: pointer; border-radius: 5px;">
+              Borrow Book
+            </button>
+          </form>
+          {% else %}
+          <!-- FIX: was {% url 'login' %} (lowercase) which didn't exist — use 'Login' -->
+          <a href="{% url 'Login' %}">
+            <button
+              style="background-color: #3f72af; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px;">
+              Login to Borrow
+            </button>
+          </a>
+          {% endif %}
           {% else %}
           <button class="disabled" disabled
             style="background-color: #cccccc; color: #666; padding: 10px 20px; border: none; cursor: not-allowed; font-size: 16px;">
@@ -132,4 +128,5 @@
   </div>
 
 </body>
+
 </html>

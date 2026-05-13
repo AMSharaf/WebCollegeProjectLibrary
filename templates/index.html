@@ -16,7 +16,8 @@
     <nav class="background-prime">
       <div class="nav container-flex-row">
         <div class="element">
-          <a href="{% url 'index' %}"><img src="{% static 'assests/MyLibrary.png' %}" alt="Library Logo" class="logo-img" /></a>
+          <a href="{% url 'index' %}"><img src="{% static 'assests/MyLibrary.png' %}" alt="Library Logo"
+              class="logo-img" /></a>
           <h1>Book Library</h1>
         </div>
         <div class="element links container-flex-row">
@@ -46,25 +47,16 @@
     </nav>
 
     {% else %}
-    <nav class="background-prime">
-      <div class="nav container-flex-row">
-        <div class="element">
-          <a href="{% url 'index' %}"><img src="{% static 'assests/MyLibrary.png' %}" alt="Library Logo" class="logo-img" /></a>
-          <h1>Book Library</h1>
-        </div>
-        <div class="element links container-flex-row">
-          <a class="element" href="{% url 'index' %}">Home</a>
-          <a class="element" href="{% url 'borrowed_books' %}">My Borrowed Books</a>
-          <a class="element" href="#Categories">Categories</a>
-          <a class="element" href="#Contact">Contact</a>
-        </div>
-        <div class="element author container-flex-column">
-          <div class="container-flex-column">
-            <p>Welcome {{ user.username }}</p>
-          </div>
-          <a class="btn" href="{% url 'Logout' %}"><button class="background-prime">Logout</button></a>
-        </div>
-      </div>
+    <nav>
+      <ul>
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="{% url 'borrowed_books' %}">Borrowed Books</a></li>
+        <li><a class="element" href="#about">About</a></li>
+        <li><a class="element" href="#Categories">Categories</a></li>
+        <li><a class="element" href="#Contact">Contact</a></li>
+        <li><a>Welcome {{ user.username }}</a></li>
+        <li><a href="{% url 'Logout' %}" id="logout-link">Logout</a></li>
+      </ul>
     </nav>
     {% endif %}
   </header>
@@ -103,18 +95,19 @@
               <button class="card-btn">Product Details</button>
             </a>
             {% if book.borrowed_by == None %}
-              {% if user.is_authenticated %}
-              <form action="{% url 'borrow_book' book.id %}" method="POST" style="width: 100%;">
-                {% csrf_token %}
-                <button type="submit" class="card-btn">Borrow Book</button>
-              </form>
-              {% else %}
-              <a href="{% url 'Login' %}">
-                <button class="card-btn" style="background-color: gray;">Login to Borrow</button>
-              </a>
-              {% endif %}
+            {% if user.is_authenticated %}
+            <form action="{% url 'borrow_book' book.id %}" method="POST" style="width: 100%;">
+              {% csrf_token %}
+              <button type="submit" class="card-btn">Borrow Book</button>
+            </form>
             {% else %}
-            <button class="card-btn" disabled style="background-color: #ccc; cursor: not-allowed;">Already Borrowed</button>
+            <a href="{% url 'Login' %}">
+              <button class="card-btn" style="background-color: gray;">Login to Borrow</button>
+            </a>
+            {% endif %}
+            {% else %}
+            <button class="card-btn" disabled style="background-color: #ccc; cursor: not-allowed;">Already
+              Borrowed</button>
             {% endif %}
           </div>
         </li>
@@ -127,8 +120,11 @@
 
     <div id="about">
       <h2>About</h2>
-      <p>The Origin: Our Library was born out of a passion for making great literature accessible to everyone, everywhere. We saw a gap between the convenience of big-box retailers and the soul of independent shops, and we decided to fill it.</p>
-      <p>How We Work: By combining a sophisticated logistics network with a deep love for the craft of writing, we ensure that the book you've been searching for is only a click away.</p>
+      <p>The Origin: Our Library was born out of a passion for making great literature accessible to everyone,
+        everywhere. We saw a gap between the convenience of big-box retailers and the soul of independent shops, and we
+        decided to fill it.</p>
+      <p>How We Work: By combining a sophisticated logistics network with a deep love for the craft of writing, we
+        ensure that the book you've been searching for is only a click away.</p>
       <h4>Values:</h4>
       <p>Sustainability: We use 100% recyclable packaging.</p>
       <p>Support: A portion of every sale goes back to local literacy programs.</p>
@@ -143,28 +139,32 @@
           <div class="category">
             <h4>Tragedy</h4>
             <img src="{% static 'assests/tragedy.png' %}" alt="Tragedy" width="80px" />
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel beatae quis sequi voluptatum necessitatibus facilis minima atque a ea repudiandae.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel beatae quis sequi voluptatum necessitatibus
+              facilis minima atque a ea repudiandae.</p>
           </div>
         </li>
         <li>
           <div class="category">
             <h4>Fantasy</h4>
             <img src="{% static 'assests/spell-book.png' %}" alt="Fantasy" width="80px" />
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel beatae quis sequi voluptatum necessitatibus facilis minima atque a ea repudiandae.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel beatae quis sequi voluptatum necessitatibus
+              facilis minima atque a ea repudiandae.</p>
           </div>
         </li>
         <li>
           <div class="category">
             <h4>History</h4>
             <img src="{% static 'assests/history-book.png' %}" alt="History" width="80px" />
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel beatae quis sequi voluptatum necessitatibus facilis minima atque a ea repudiandae.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel beatae quis sequi voluptatum necessitatibus
+              facilis minima atque a ea repudiandae.</p>
           </div>
         </li>
         <li>
           <div class="category">
             <h4>Science</h4>
             <img src="{% static 'assests/physics.png' %}" alt="Science" width="80px" />
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel beatae quis sequi voluptatum necessitatibus facilis minima atque a ea repudiandae.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel beatae quis sequi voluptatum necessitatibus
+              facilis minima atque a ea repudiandae.</p>
           </div>
         </li>
       </ul>
@@ -175,10 +175,14 @@
     <div id="Contact" class="container-flex-row">
       <p>#The Book is ours</p>
       <ul class="container-flex-row contact">
-        <li><a href="https://www.tiktok.com/" target="_blank"><img src="{% static 'assests/tik-tok.png' %}" alt="TikTok" height="20px" /></a></li>
-        <li><a href="https://www.instagram.com/" target="_blank"><img src="{% static 'assests/social.png' %}" alt="Instagram" height="20px" /></a></li>
-        <li><a href="#" target="_blank"><img src="{% static 'assests/whatsapp.png' %}" alt="Whatsapp" height="20px" /></a></li>
-        <li><a href="https://www.facebook.com" target="_blank"><img src="{% static 'assests/facebook.png' %}" alt="Facebook" height="20px" /></a></li>
+        <li><a href="https://www.tiktok.com/" target="_blank"><img src="{% static 'assests/tik-tok.png' %}" alt="TikTok"
+              height="20px" /></a></li>
+        <li><a href="https://www.instagram.com/" target="_blank"><img src="{% static 'assests/social.png' %}"
+              alt="Instagram" height="20px" /></a></li>
+        <li><a href="#" target="_blank"><img src="{% static 'assests/whatsapp.png' %}" alt="Whatsapp"
+              height="20px" /></a></li>
+        <li><a href="https://www.facebook.com" target="_blank"><img src="{% static 'assests/facebook.png' %}"
+              alt="Facebook" height="20px" /></a></li>
       </ul>
     </div>
     <div class="container-flex-row">
@@ -190,4 +194,5 @@
   <script src="{% static 'JavaScript/User_Scripts.js' %}"></script>
   <script src="{% static 'JavaScript/first.js' %}"></script>
 </body>
+
 </html>

@@ -14,11 +14,16 @@
   <nav>
     <ul>
       <li><a href="{% url 'index' %}">Home</a></li>
-      <li><a href="{% url 'borrowed_books' %}">Borrowed Books</a></li>
       {% if user.is_staff %}
       <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+      <li><a href="{% url 'borrowed_books' %}">Borrowed Books</a></li>
       <li><a href="{% url 'add-book' %}">Add New Book</a></li>
       <li><a href="{% url 'edit_book' %}">Edit/Delete Books</a></li>
+      {% else %}
+      <li><a href="{% url 'borrowed_books' %}">Borrowed Books</a></li>
+      <li><a class="element" href="{% url 'index'%}">About</a></li>
+      <li><a class="element" href="{% url 'index'%}">Categories</a></li>
+      <li><a class="element" href="{% url 'index'%}">Contact</a></li>
       {% endif %}
       <li><a>Welcome {{ user.username }}</a></li>
       <li><a href="{% url 'Logout' %}" id="logout-link">Logout</a></li>
@@ -69,7 +74,8 @@
               {% if user.is_staff %}
               <!-- Admin can force-return any book -->
               <a href="{% url 'return_book' book.id %}">
-                <button style="background-color:#c0392b; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius:4px;">
+                <button
+                  style="background-color:#c0392b; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius:4px;">
                   Force Return
                 </button>
               </a>
@@ -84,9 +90,9 @@
           <tr>
             <td colspan="{% if user.is_staff %}7{% else %}6{% endif %}" style="padding: 20px;">
               {% if user.is_staff %}
-                No books are currently borrowed by any user.
+              No books are currently borrowed by any user.
               {% else %}
-                You do not currently have any borrowed books.
+              You do not currently have any borrowed books.
               {% endif %}
             </td>
           </tr>
@@ -97,4 +103,5 @@
   </main>
 
 </body>
+
 </html>
